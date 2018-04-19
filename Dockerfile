@@ -3,7 +3,7 @@ LABEL maintainer="Erwin Boskma <erwin@datarift.nl>"
 LABEL version="1.0"
 
 RUN apt-get update && apt-get install -y make unrar-free autoconf automake libtool gcc g++ gperf \
-  flex bison texinfo gawk ncurses-dev libexpat-dev python-dev python python-serial \
+  flex bison texinfo gawk ncurses-dev libexpat-dev python-dev python python-serial python-pip \
   sed git unzip bash help2man wget bzip2 libtool-bin && apt-get clean
 
 RUN mkdir /esp8266 && mkdir /app
