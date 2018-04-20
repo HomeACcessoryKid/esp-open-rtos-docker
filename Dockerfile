@@ -24,4 +24,4 @@ ENV PATH=/esp8266/esp-open-sdk/xtensa-lx106-elf/bin:$PATH SDK_PATH=/esp8266/esp-
 
 VOLUME [ "/app" ]
 
-ENTRYPOINT [ "make", "-j", "$(nproc)" ]
+ENTRYPOINT [ "sh", "-c", "make -j$(nproc)" ]
