@@ -17,7 +17,7 @@ USER espbuild
 RUN git clone --recursive https://github.com/pfalcon/esp-open-sdk && \
   git clone --recursive https://github.com/SuperHouse/esp-open-rtos
 
-RUN cd esp-open-sdk && make toolchain esptool libhal STANDALONE=n && pip install esptool
+RUN cd esp-open-sdk && git submodule update --remote --merge crosstool-NG && make toolchain esptool libhal STANDALONE=n && pip install esptool
 
 WORKDIR /app
 ENV PATH=/esp8266/esp-open-sdk/xtensa-lx106-elf/bin:$PATH SDK_PATH=/esp8266/esp-open-rtos
