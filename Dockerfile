@@ -25,9 +25,12 @@ RUN find esp-open-sdk/crosstool-NG -name "???-expat.sh" -exec sed -i.orig sYhttp
 RUN cd esp-open-sdk && make toolchain esptool libhal STANDALONE=n && pip install esptool
 RUN find esp-open-sdk -name esptool.py   -exec sed -i.orig s/import\ serial/\#import\ serial/ \{\} \;
 
-#these lines are for HacK purposes only and can be skipped. they do not change normal behavior though.
+# these lines are for HacK purposes only and can be skipped. they do not change normal behavior though.
 RUN cd esp-open-rtos/ld && cp program.ld program1.ld && sed -i s/0x40202010/0x4028D010/ program1.ld
 RUN cd esp-open-rtos && sed -i -E 'sY\+\=\ \$\(ROOT\)ld/program.ld\ \$\(ROOT\)ld/rom.ldY\?\=\ \$\(ROOT\)ld/program.ld\nLINKER_SCRIPTS\ +=\ \$\(ROOT\)ld/rom.ldY' parameters.mk
+
+# using docker build --squash we can remove almost 4GB of the image!
+RUN cd esp-open-sdk/crosstool-NG && rm -rf .build build.log
 
 WORKDIR /project
 ENV PATH=/esp8266/esp-open-sdk/xtensa-lx106-elf/bin:$PATH SDK_PATH=/esp8266/esp-open-rtos
